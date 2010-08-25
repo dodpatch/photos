@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\CategoryRequest;
 use App\Repositories\CategoryRepository;
-
+use App\Models\Category;
 class CategoryController extends Controller
 {
     /**
@@ -57,9 +57,9 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Category $category)
     {
-        //
+       return view('category.edit', compact('category'));
     }
 
     /**
@@ -69,9 +69,10 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CategoryRequest $request, Category $category)
     {
-        //
+        $category->update($request->all());
+        return redirect()->route('home')->with('ok',__('La catégorie a été modifiée'));
     }
 
     /**

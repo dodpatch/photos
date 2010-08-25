@@ -33,5 +33,8 @@ public function images()
     return $this->hasMany(Image::class);
 }
 
+public function getAdminAttribute(){
+    return $this->role === 'admin';
+}
 
 }
