@@ -9,12 +9,11 @@ use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
-use Illuminate\{Queue\SerializesModels,
-Database\Eloquent\Model}
+use Illuminate\Database\Eloquent\Model;
 
 class NameSaving
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use Dispatchable, InteractsWithSockets;
     public $model;
 
     /**
@@ -24,7 +23,7 @@ class NameSaving
      */
     public function __construct(Model $model)
     {
-        //
+        $this->model = $model;
     }
 
     /**

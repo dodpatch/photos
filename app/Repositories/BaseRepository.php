@@ -12,17 +12,17 @@ abstract class BaseRepository
 		$this->model = $model;
 	}
 
-	public function store(array $inputs):Model
+	public function store(array $inputs)
 	{
 		return $this->model->create($inputs);
 	}
 
-	public function getBySlug($slug):Model
+	public function getBySlug($slug)
 	{
       return $this->model->whereSlug($slug)->firstOrFail();
 	}
 
-	public function getByUser($id):Model
+	public function getByUser($id)
 	{
 		return whereUserId($id)->get();
 	}

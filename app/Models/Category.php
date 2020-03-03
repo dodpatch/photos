@@ -7,8 +7,8 @@ use App\Events\NameSaving;
 
 class Category extends Model
 {
-    protect $fillable = [
+    protected $fillable = [
     	'name','slug'];
-    protected $dispatchEvents = [
-    	'saving'=> NameSaving::class,]
+    protected $dispatchesEvents = [
+    	'saving'=> NameSaving::class,];
 }

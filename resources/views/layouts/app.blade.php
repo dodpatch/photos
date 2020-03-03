@@ -20,11 +20,20 @@
             <ul class="navbar-nav ml-auto">
                 @admin
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle{{currentRoute(route('category.create'))}}" href="#" id="navbarDropdownGestCat" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">@lang('Administration')
+                        <a class="nav-link dropdown-toggle{{currentRoute(route('category.create'),
+                        route('category.index'),
+                        route('category.edit',request()->category?:0)
+
+                        )}}" href="#" id="navbarDropdownGestCat" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">@lang('Administration')
                         </a>
                         <div class="dropdown-menu" aria-labeledby="navbarDropdownGestCat">
                             <a class="dropdown-item" href="{{route('category.create')}}">
                                 <i class="fas fa-plus fa-lg"></i>@lang('Ajouter une categorie')</a>
+
+                            <a class="dropdown-item" href="{{route('category.index')}}">
+                             <i class="fa fa-edit fa-lg"></i>@lang('Gérer les categories')</a>
+
+        
                         </div>
                     </li>
                @endadmin
@@ -46,7 +55,7 @@
     </nav>
     @if(session('ok'))
     <div class="container">
-        <div class="alert alert-dismissible alert-succes fade show" role="alert">
+        <div class="alert alert-dismissible alert-succes fade show bg-white" role="alert">
             {{session('ok')}}
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>

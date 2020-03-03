@@ -4,11 +4,10 @@ namespace App\Listeners;
 
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use App\Event\NameSaving\ as EventNameSaving;
+use App\Events\NameSaving as EventNameSaving;
 
 class NameSaving
 {
-    use SerializeModels;
     public $model;
     /**
      * Create the event listener.

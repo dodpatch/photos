@@ -25,7 +25,7 @@ class CategoryRequest extends FormRequest
     {
         $id = $this->category ? ','.$this->category->id:'';
         return [
-            'name'=>'required|string|max:255|unique:category,name'.$id,
+            'name'=>'required|string|max:255|unique:categories,name' .$id,
         ];
     }
 }
