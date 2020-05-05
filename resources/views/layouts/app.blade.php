@@ -12,7 +12,7 @@
     <body>
 
     <nav class="navbar fixed-top navbar-expand-md navbar-dark bg-dark">
-        <a class="navbar-brand" href="{{ route('home') }}">{{ config('app.name', 'Photos') }}</a>
+        <a class="navbar-brand" href="{{ route('welcome') }}">{{ config('app.name', 'Photos') }}</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -32,11 +32,16 @@
 
                             <a class="dropdown-item" href="{{route('category.index')}}">
                              <i class="fa fa-edit fa-lg"></i>@lang('Gérer les categories')</a>
-
-        
                         </div>
-                    </li>
+                    </li> 
                @endadmin
+               @auth
+               <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle{{currentRoute(route('image.create'))}}" href="#" id="navbarDropdownGestAlbum" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    @lang("Gestion")</a> 
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownGestAlbum"><a class="dropdown-item" href="{{route('image.create')}}"> <i class="fa fa-images fa-lg"></i> @lang('Ajouter une image')</a>
+                    </div></li>
+                @endauth
             </ul>
             <ul class="navbar-nav ">
                 @guest

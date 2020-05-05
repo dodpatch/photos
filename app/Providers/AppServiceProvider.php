@@ -15,10 +15,16 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Blade::if('admin',function(){
-            return auth()->check() && auth()->user()->admin;
+            return auth()->check() && auth()->user()->role === 'admin';
 
         });
 
+        /**
+         * rendre la variable categorie accessible dans toutes les vue
+         * share permet de partager les categories avec toutes les vue
+         * resolve permet demander au conteneur de créer une classe CategoryRepository pour pouvoir
+         * charger la variable avec toutes les categories
+        */
         if(request()->server("SCRIPT_NAME") !== 'artisan'){
             view()->share('categories',resolve(CategoryRepository::class)->getAll());
         }

@@ -13,3 +13,8 @@
 body {
     padding-top: 70px;
 }
+
+.custom-file-label::after{
+    content: "Parcourir";
+
+}

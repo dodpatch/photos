@@ -9,6 +9,11 @@ class Category extends Model
     protected $fillable = [
     	'name','slug'];
     protected $dispatchesEvents = [
-    	'saving'=> NameSaving::class,];
+        'saving'=> NameSaving::class,];
+        
+    public function images()
+    {
+        return $this->hasMany (Image::class);
+    }
 }
 
