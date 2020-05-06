@@ -40,11 +40,22 @@ class ImageController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
-    }
 
+    public function store($request)
+    {
+        // Save image
+        $path = basename ($request->image->store('images'));
+        // Save thumb
+        $image = InterventionImage::make ($request->image)->widen (500)->encode ();
+        Storage::put ('thumbs/' . $path, $image);
+        // Save in base
+        $image = new Image;
+        $image->description = $request->description;
+        $image->category_id = $request->category_id;
+        $image->adult = isset($request->adult);
+        $image->name = $path;
+        $request->user()->images()->save($image);
+    }
     /**
      * Display the specified resource.
      *
