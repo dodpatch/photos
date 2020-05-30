@@ -3,25 +3,47 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Repositories\ImageRepository;
+use App\Repositories\ {
+    ImageRepository,CategoryRepository
+};
+use App\Models\ {
+    User, Image
+};
 
 class ImageController extends Controller
 {
-    
-    protected $repository;
-
-    public function _construct(ImageRepository $repository)
-    {
-        $this->repository = $repository;
-    }
     /**
-     * Display a listing of the resource.
+     * Image repository.
      *
-     * @return \Illuminate\Http\Response
+     * @var \App\Repositories\ImageRepository
      */
-    public function index()
+    protected $imageRepository;
+
+    /**
+     * Category repository.
+     *
+     * @var \App\Repositories\CategoryRepository
+     */
+    protected $categoryRepository;
+
+    /**
+     * Album repository.
+     *
+     * @var \App\Repositories\ImageRepository
+     */
+    /**
+     * Create a new ImageController instance.
+     *
+     * @param  \App\Repositories\ImageRepository $imageRepository
+     * @param  \App\Repositories\AlbumRepository $albumRepository
+     * @param  \App\Repositories\CategoryRepository $categoryRepository
+     */
+    public function __construct(
+        ImageRepository $imageRepository,
+        CategoryRepository $categoryRepository)
     {
-        //
+        $this->imageRepository = $imageRepository;
+        $this->categoryRepository = $categoryRepository;
     }
 
     /**
@@ -31,73 +53,27 @@ class ImageController extends Controller
      */
     public function create()
     {
-        return view('images.create');
+        return view ('images.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
+    public function store(Request $request)
+    {
+        $request->validate ([
+            'image' => 'required|image|max:2000',
+            'category_id' => 'required|exists:categories,id',
+            'description' => 'nullable|string|max:255',
+        ]);
 
-    public function store($request)
-    {
-        // Save image
-        $path = basename ($request->image->store('images'));
-        // Save thumb
-        $image = InterventionImage::make ($request->image)->widen (500)->encode ();
-        Storage::put ('thumbs/' . $path, $image);
-        // Save in base
-        $image = new Image;
-        $image->description = $request->description;
-        $image->category_id = $request->category_id;
-        $image->adult = isset($request->adult);
-        $image->name = $path;
-        $request->user()->images()->save($image);
-    }
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+        $this->imageRepository->store ($request);
+
+        return back ()->with ('ok', __ ("L'image a bien été enregistrée"));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
+   
 }

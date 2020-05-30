@@ -1,14 +1,9 @@
 @extends('layouts.form')
-
 @section('card')
-
     @component('components.card')
-
         @slot('title')
             @lang('Gestion des catégories')
         @endslot
-
-
         <table class="table table-dark text-white">
             <tbody>
             @foreach($categories as $category)
@@ -28,19 +23,13 @@
             @endforeach
             </tbody>
         </table>
-
     @endcomponent
-
 @endsection
-
 @section('script')
-
     <script>
         $(() => {
             $('a').removeClass('invisible')
         })
     </script>
-
     @include('partials.script-delete', ['text' => __('Vraiment supprimer cette catégorie ?'), 'return' => 'removeTr'])
-
 @endsection

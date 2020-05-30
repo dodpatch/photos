@@ -1,12 +1,9 @@
 <script>
     $(() => {
-
         $.ajaxSetup({
             headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}
         })
-
         $('[data-toggle="tooltip"]').tooltip()
-
         $('a.btn-danger').click((e) => {
             let that = $(e.currentTarget)
             e.preventDefault()
@@ -35,7 +32,7 @@
                     })
                     .fail(() => {
                         swal({
-                            title: '@lang('Il semble y avoir une erreur sur le serveur, veuillez réessayer plus tard...')',
+                            title: '@lang('Il semble y avoir une erreur sur le serveur, veuillez réessayer plus tard')',
                             type: 'warning'
                         })
                     })
@@ -44,5 +41,3 @@
         })
     })
 </script>
-
-
