@@ -19,6 +19,10 @@ class AppServiceProvider extends ServiceProvider
 
         });
 
+         Blade::if('AdminOrOwner',function($id){
+            return auth()->check() && auth()->id() === $id || auth()->user()->admin;
+        });
+
         /**
          * rendre la variable categorie accessible dans toutes les vue
          * share permet de partager les categories avec toutes les vue

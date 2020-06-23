@@ -11,6 +11,7 @@ class UsersTableSeeder extends Seeder{
 			'role'=>'admin',
 			'password'=>bcrypt('admin095'),
 			'email_verified_at'=>Carbon::now(),
+			'settings' => '{"pagination": 8, "adult": true}',
 		]);
 
 		User::create([
@@ -19,6 +20,7 @@ class UsersTableSeeder extends Seeder{
 			'role'=>'user',
 			'password'=>bcrypt('durant095'),
 			'email_verified_at'=>Carbon::now(),
+			'settings' => '{"pagination": 8, "adult": true}',
 		]);
 	}
 	

@@ -2,32 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Model;
 
-class User extends Authenticatable
+class Image extends Model
 {
-    use Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'name', 'email', 'password',
-    ];
-
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
-
+    
     public function category()
     {
     	return $this->belongsTo(Category::class);
@@ -36,6 +16,15 @@ class User extends Authenticatable
     public function user()
     {
     	return $this->belongsTo(User::class);
+    }
+
+    public function scopeLatestWithUser($query)
+    {
+            $user = auth()->user();
+            if($user && $user->adult) {
+                return $query->with ('user')->latest ();
+        }
+        return $query->with ('user')->whereAdult(false)->latest ();
     }
 
 
